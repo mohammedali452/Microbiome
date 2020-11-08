@@ -1,9 +1,11 @@
+##This script extracts the zipped fastq/fasta files downloaded from the NIH HMP Page and places them in folders based on the subject they belong to. It also creates manifest files (Files that list the sample id and file path) for each patient so we can feed that file to qiime and create OTU Table
+
 import os
 import gzip
 import shutil
 import tarfile
 
-Data_folder = r"/users/esra/Microbiome Research/Microbiome/Database/Syndromic"
+Data_folder = r"DATA_PATH"
 cnt = 1
 
 #Extracting the .fastq.gz files to .fastq files in the same folder
