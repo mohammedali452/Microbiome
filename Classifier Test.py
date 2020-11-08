@@ -1,3 +1,5 @@
+###Basic ML Script that test accuracies for various classifiers to see which single classifier performs the best
+
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import LinearSVC
@@ -11,13 +13,14 @@ from sklearn import metrics
 import pandas as pd 
 import numpy as np 
 import statistics
-import sys
 
-data_path = r"E:\Mohammad\Microbiome\CRC_Data\otu.csv"
+##Data is OTU Table of numerous patients with Colorectal Canncer 
+data_path = r"INPUT_PATH_OF_DATA.csv"
 y_pred = None
 X_train, X_test, y_train, y_test = None, None, None, None
 
-label_path = r"E:\Mohammad\Microbiome\CRC_Data\crc1+2_label_vector.tab"
+##Label of the patients' diagnosis (Normal or Syndromic)
+label_path = r"INPUT_PATH_OF_LABELS.csv"
 label_list = pd.read_csv(label_path, sep="\t", header=None).to_numpy()
 
 binary_labels = []
@@ -37,22 +40,16 @@ otu_table = pd.read_csv(data_path, index_col=0)
 
 otu_table = otu_table.transpose()
 
-# otu_nolabel = otu_table.drop(columns=['label'])
-# otu_labels = otu_table['label']
-
 X_train, X_test, y_train, y_test = train_test_split(otu_table, binary_labels, test_size=0.3) # 70% training and 30% test
 # y_train = y_train.astype('int')
 
 print(X_test)
 
-sys.exit()
 
-# model = RandomForestClassifier(n_estimators=31)
-# model = LinearSVC()
-# model = KNeighborsClassifier(n_neighbors=5)
-# model = ElasticNet(random_state=0)
-# model = linear_model.Lasso(alpha=0.1)
-model = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(91, 100 ,2), random_state=1, max_iter=750)
+# model = RandomForestClassifier(n_estimators=31) ## Random Forest CLassifier with 31 Random Trees developed
+# model = LinearSVC() ##Support Vector Machine Classifer 
+# model = KNeighborsClassifier(n_neighbors=5) ##KNN Classifier with 5 neighbors
+model = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(91, 100 ,2), random_state=1, max_iter=750) ##Multi-layer Perceptron classifier
 model.fit(X_train,y_train)
 
 
