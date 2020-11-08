@@ -1,8 +1,9 @@
+##This script downloads the different FASTQ/FASTA files from the NIH Human Microbiome Project page. We were able to download tsv files that held the download links which we accessed via this script. We were also able to add the downloaded files to specific folders that were organized by subjects in order to keep track each subjects' individual sample
 from urllib import request
 import os
 import pandas as pd
 
-base_path = r"C:\Users\imohammed\Desktop\Microbiome"
+base_path = r"BASE_DIRECTORY"
 
 sample_path = os.path.join(base_path, "Sample Info.tsv")
 download_path  = os.path.join(base_path, "Download Links.tsv")
@@ -13,7 +14,7 @@ sample_sheet = pd.read_csv(sample_path, delimiter="\t", usecols=["sample_id", "s
 download_sheet = pd.read_csv(download_path, delimiter="\t", usecols=["sample_id", "urls"])
 
 
-print("Downloading Poop Files")
+print("Downloading Files")
 cnt = 1
 for i in sample_sheet.index:
 
@@ -32,16 +33,11 @@ for i in sample_sheet.index:
 
             url_download = download_sheet["urls"][i]
 
-
-            # if not os.path.exists(final_path):
-            #     os.makedirs(final_path)
-
-            request.urlretrieve(url_download, final_path + "\\" + temp_sample_id + "fastq.gz")
-            #wget.download(url_download, os.path.join(final_path, temp_subject_id + ".fastq.gz"))
-            print("Poop Sample " + str(cnt) + " downloaded")
+            request.urlretrieve(url_download, final_path + "\\" + temp_sample_id + "fastq.gz") ##Change to .fna as some diseases (i.e. Type 2 Diabeties are in fasta format)
+            print("Sample " + str(cnt) + " downloaded")
             cnt += 1
 
         except:
             print(temp_sample_id)
 
-print("Poop downloaded")
+print("Files downloaded")
