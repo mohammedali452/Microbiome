@@ -1,6 +1,8 @@
+##This script combines all the fasta files into one file so we can feed it into QIIME and retrieve OTU Tables 
+
 import os
 
-data_folder = r"E:\Mohammad\Python\Microbiome Code\Data\Test_2"
+data_folder = r"DATA_PATH"
 content = []
 
 for subject_folder in os.listdir(data_folder):
