@@ -1,7 +1,8 @@
+##Script that checks if sample ids that identify indivual sampples are equivalent in both the tsv that provide subject information and the download tsv with the download links
 import pandas as pd
 import os
 
-base_path = r"C:\Users\imohammed\Desktop\Microbiome"
+base_path = r"BASE_PATH"
 
 sample_path = os.path.join(base_path, "Sample Info.tsv")
 download_path = sample_path = os.path.join(base_path, "Download Links.tsv")
